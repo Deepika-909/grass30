@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diffie-Hellman Key Exchange</title>
+</head>
+<body>
+    <h2>Diffie-Hellman Key Exchange</h2>
+<script>
+function power(base, exp, mod) {
+    let result = 1;
+    base = base % mod;
+
+    while (exp > 0) {
+        if (exp % 2 === 1) {
+            result = (result * base) % mod;
+        }
+        exp = Math.floor(exp / 2);
+        base = (base * base) % mod;
+    }
+    return result;
+}
+
+let p = parseInt(prompt("Enter a prime number (p):"));
+let g = parseInt(prompt("Enter primitive root (g):"));
+
+let a = parseInt(prompt("Enter Alice's private key (a):"));
+let b = parseInt(prompt("Enter Bob's private key (b):"));
+
+let A = power(g, a, p);
+let B = power(g, b, p);
+
+let secretKeyAlice = power(B, a, p);
+let secretKeyBob = power(A, b, p);
+
+document.write("Value of p: " + p + "<br>");
+document.write("Value of g: " + g + "<br>");
+
+document.write("Alice's private key (a): " + a + "<br>");
+document.write("Bob's private key (b): " + b + "<br>");
+
+document.write("Alice's public key (A): " + A + "<br>");
+document.write("Bob's public key (B): " + B + "<br>");
+
+document.write("Secret key for Alice: " + secretKeyAlice + "<br>");
+document.write("Secret key for Bob: " + secretKeyBob + "<br>");
+
+if (secretKeyAlice === secretKeyBob) {
+    document.write("<br><b>Key exchange successful</b><br>");
+    document.write("Shared secret key is: " + secretKeyAlice);
+} else {
+    document.write("<br><b>Key exchange failed</b>");
+}
+
+</script>
+</body>
+</html>
