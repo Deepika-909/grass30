@@ -1,2 +1,6 @@
 *.class
 *.exe
+*.yy.c
+*.tab.h
+*.tab.c
+*.o
