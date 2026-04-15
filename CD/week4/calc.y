@@ -2,12 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define YYSTYPE double
 int yylex();
 int yyerror(char *s);
 %}
 
-%token NUM
+%union {
+    double dval;
+}
+
+%token <dval> NUM
+%type <dval> E
+
 %left '+' '-'
 %left '*' '/'
 %right UMINUS
@@ -15,16 +20,16 @@ int yyerror(char *s);
 %%
 
 Statement:
-      E '\n'     { printf("Answer: %g\n", $1); }
-    ;
+      E '\n' { printf("Answer: %g\n", $1); }
+      ;
 
 E:
-      E '+' E    { $$ = $1 + $3; }
-    | E '-' E    { $$ = $1 - $3; }
-    | E '*' E    { $$ = $1 * $3; }
-    | E '/' E    { $$ = $1 / $3; }
+      E '+' E { $$ = $1 + $3; }
+    | E '-' E { $$ = $1 - $3; }
+    | E '*' E { $$ = $1 * $3; }
+    | E '/' E { $$ = $1 / $3; }
     | '-' E %prec UMINUS { $$ = -$2; }
-    | NUM
+    | NUM { $$ = $1; }
     ;
 
 %%
