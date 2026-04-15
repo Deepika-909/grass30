@@ -1,7 +1,7 @@
 #include <stdio.h>
 int main()
 {
-    int n, i, k, flag = 0;
+    int n, i, j, k, div =0, ffound = 0;
     char vari[15], typ[15], expr[50], ch;
     printf("Enter number of variables: ");
     scanf("%d", &n);
@@ -28,28 +28,26 @@ int main()
     {
         if(expr[i] == '/')
         {
-            flag = 1;
+            div = 1;
             break;
         }
     }
 
-    for(i = 0; i < n; i++)
-    {
-        if(expr[0] == vari[i])
-        {
-            if(flag == 1)
-            {
-                if(typ[i] == 'f')
-                    printf("\nDatatype is correctly defined!\n");
-                else
-                    printf("\nError: %c must be float type!\n", vari[i]);
+    for(i = 0; expr[i] != '\0'; i++) {
+        if(isalpha(expr[i])) {
+            for(j = 0; j < n; j++) {
+                if(expr[i] == vari[j]) {
+                    if(typ[j] == 'f')
+                        ffound = 1;
+                }
             }
-            else
-                printf("\nDatatype is correctly defined!\n");
-
-            break;
         }
     }
 
+    // Final decision
+    if(ffound == 0 && div == 1)
+        printf("Error: Expression requires float type\n");
+    else
+        printf("Datatype is correct\n");
     return 0;
 }
