@@ -94,16 +94,7 @@ public class week3C {
         adj[2][2] =  (m[0][0]*m[1][1] - m[0][1]*m[1][0]);
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                adj[i][j] = ((adj[i][j] % 26) + 26) % 26
-        for (int i = 0; i < 3; i++)
-            for (int j = i + 1; j < 3; j++) {
-                int temp = adj[i][j];
-                adj[i][j] = adj[j][i];
-                adj[j][i] = temp;
-            }
-        return adj;
-    }
-}
+                adj[i][j] = ((adj[i][j] % 26) + 26) % 26;
         for (int i = 0; i < 3; i++)
             for (int j = i + 1; j < 3; j++) {
                 int temp = adj[i][j];
